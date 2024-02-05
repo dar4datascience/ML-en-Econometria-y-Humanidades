@@ -1,12 +1,20 @@
 project:
   type: website
   output-dir: docs
+
+website:
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        file: project_overview.qmd
+
   
 format:
   html:
-    title-block-banner: true
     toc: true
+    smooth-scroll: true
     theme:
       light: material
-      dark: cyborg
-    smooth-scroll: true
+      dark: darkly
