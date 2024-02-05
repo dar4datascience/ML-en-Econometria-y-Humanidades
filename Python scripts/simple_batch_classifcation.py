@@ -3,6 +3,7 @@ import asyncio
 import openai
 from typing import List
 from pydantic import BaseModel
+import pandas as pd
 
 paper_list = []
 
@@ -52,7 +53,17 @@ async def process_paper_citations(paper_citations):
 paper_citations = paper_list
 result_dict = asyncio.run(process_paper_citations(paper_citations))
 
-for paper_citation, response_json in result_dict.items():
-    print(f"Paper Citation: {paper_citation}")
-    print(response_json)
-    print("=" * 50)
+# for paper_citation, response_json in result_dict.items():
+#     print(f"Paper Citation: {paper_citation}")
+#     print(response_json)
+#     print("=" * 50)
+
+
+# Convert dictionary to DataFrame with an index
+# Parse the string values into dictionaries
+import json
+parsed_dict = {key: json.loads(value) for key, value in result_dict.items()}
+
+# Convert to DataFrame
+ml_sources_df = pd.DataFrame(list(parsed_dict.values()))
+

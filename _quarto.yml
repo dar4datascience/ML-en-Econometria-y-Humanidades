@@ -1,3 +1,12 @@
 project:
   type: website
   output-dir: docs
+  
+format:
+  html:
+    title-block-banner: true
+    toc: true
+    theme:
+      light: material
+      dark: cyborg
+    smooth-scroll: true
