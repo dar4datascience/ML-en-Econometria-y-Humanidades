@@ -1,6 +1,7 @@
 import instructor
 import asyncio
 import openai
+import json
 from typing import List
 from pydantic import BaseModel
 import pandas as pd
@@ -27,8 +28,6 @@ class MLPapersExtract(BaseModel):
     apa_citation: str
     
 
-import asyncio
-
 async def process_paper_citations(paper_citations):
     results = {}
 
@@ -45,7 +44,11 @@ async def process_paper_citations(paper_citations):
         )
 
         response = await asyncio.gather(task)
-        results[f"paper_{i}"] = response[0].model_dump_json(indent=2)
+        # Convert the JSON string to a dictionary
+        results[f"paper_{i}"] = json.loads(response[0].model_dump_json(indent=2))
+        
+        # Now you can add the new attribute
+        results[f"paper_{i}"]["op_apa"] = paper_citation
 
     return results
 
@@ -61,8 +64,8 @@ result_dict = asyncio.run(process_paper_citations(paper_citations))
 
 # Convert dictionary to DataFrame with an index
 # Parse the string values into dictionaries
-import json
-parsed_dict = {key: json.loads(value) for key, value in result_dict.items()}
+
+parsed_dict = {key: value for key, value in result_dict.items()}
 
 # Convert to DataFrame
 ml_sources_df = pd.DataFrame(list(parsed_dict.values()))

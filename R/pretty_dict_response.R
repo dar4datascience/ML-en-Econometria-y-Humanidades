@@ -10,4 +10,5 @@ wrong_entries <- ml_sources_df |>
 
 
 ml_sources_df |> 
-  readr::write_csv("data/ml_sources_df.csv")
+  readr::write_csv("data/ml_sources_df.csv",
+                   append = FALSE)
