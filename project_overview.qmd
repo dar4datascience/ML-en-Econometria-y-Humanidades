@@ -43,7 +43,8 @@ ml_sources_df |>
     "Fecha" = year_of_publication
   ) |> 
 reactable(searchable = TRUE,
-          pagination = TRUE) |>  
+          pagination = TRUE,
+          theme = dark()) |>  
   add_title(
     title = reactablefmtr::html("ML Fuentes <img src='http://oferta.unam.mx/assets/img/dummies/economia1.png' alt='ML Fuentes' width='210' height='200'>")
   ) %>% 
